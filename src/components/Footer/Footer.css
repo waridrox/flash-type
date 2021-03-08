@@ -1,0 +1,23 @@
+.footer-container {
+  display: flex;
+  justify-content: center;
+  background: #e7e6e7;
+  margin: 0;
+}
+
+.footer-link {
+  font-family: "Lato", sans-serif;
+  font-size: 26px;
+  color: #1d2020;
+  margin: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+}
+.footer-link:hover {
+  font-weight: bolder;
+}
+
+.gh-icon {
+  width: 3vh;
+}
