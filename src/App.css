@@ -1,11 +1,12 @@
 .App {
-  display: flex;
-  flex-direction: column;
-  background-color: brown;
+    display: flex;
+    flex-direction: column;
+    background-color: brown;
+    /* background-color: #ff304f; */
 }
 
 body {
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
