@@ -6,6 +6,7 @@ import Nav from '../Nav/Nav';
 import React from 'react';
 
 const TotalTime = 60;
+// const URL = "http://metaphorpsum.com/paragraphs/1/9";
 
 class App extends React.Component {
   state = {
@@ -17,7 +18,7 @@ class App extends React.Component {
       wpm: 0
   }
 
-  render() {
+  render() { //Should be devoid of any async method
     return (
           <div className="App">
             {/* Navbar */}
