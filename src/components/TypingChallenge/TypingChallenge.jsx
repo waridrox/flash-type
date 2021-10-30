@@ -1,14 +1,17 @@
 import React from 'react'
 import './TypingChallenge.css'
 
-const TypingChallenge = ({ selectedParagraph }) => {    
+const TypingChallenge = ({ selectedParagraph, timeRemaining, timerStarted }) => {    
 
     return ( 
         <div className="typing-challenge">
             <div className="timer-container">
-                <p className="timer">09:41</p>
+                <p className="timer">
+                00: 
+                {timeRemaining >= 10 ? timeRemaining : `0${timeRemaining}`}
+                </p>
                     <p className="timer-info">
-                        Start typing below to start the test!
+                        {!timerStarted && "Start typing to start the test!"}
                     </p>
             </div>
 
