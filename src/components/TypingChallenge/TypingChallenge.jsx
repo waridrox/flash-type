@@ -1,8 +1,9 @@
 import React from 'react'
 import './TypingChallenge.css'
 
-const TypingChallenge = ({ selectedParagraph, timeRemaining, timerStarted }) => {    
+const TypingChallenge = ({ selectedParagraph, timeRemaining, timerStarted, testInfo }) => {    
 
+    console.log('Inside the typing challenge component', testInfo)
     return ( 
         <div className="typing-challenge">
             <div className="timer-container">
