@@ -2,7 +2,7 @@ import React from 'react'
 import TestLetter from '../TestLetter/TestLetter';
 import './TypingChallenge.css'
 
-const TypingChallenge = ({ selectedParagraph, timeRemaining, timerStarted, testInfo }) => {    
+const TypingChallenge = ({ onInputChange, timeRemaining, timerStarted, testInfo }) => {    
 
     console.log('Inside the typing challenge component', testInfo)
     return ( 
@@ -33,7 +33,9 @@ const TypingChallenge = ({ selectedParagraph, timeRemaining, timerStarted, testI
                 </div>
 
                 <div className="textarea-right">
-                    <textarea className="textarea" 
+                    <textarea 
+                    onChange={(e) => onInputChange(e.target.value)}
+                    className="textarea" 
                     placeholder="Begin your test by typing here..." ></textarea>
                 </div>
             </div>

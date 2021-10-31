@@ -42,6 +42,11 @@ class App extends React.Component {
   //2. fetch method is called and we update the state by setting the response as the new state
   //3. due to state change, render method gets called again
 
+
+  handleUserInput = (inputValue) => {
+    console.log(inputValue);
+  }
+
   render() { //Should be devoid of any async method
     console.log(this.state.testInfo);
     return (
@@ -59,6 +64,7 @@ class App extends React.Component {
               timeRemaining = {this.state.timeRemaining}
               timerStarted = {this.state.timerStarted}
               testInfo = {this.state.testInfo}
+              onInputChange = {this.handleUserInput}
 
             />
             {/* Child component of Challenge Section is going to be a Test Container
