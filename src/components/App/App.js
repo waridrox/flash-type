@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 import Landing from '../Landing/Landing';
 import Nav from '../Nav/Nav';
 import React from 'react';
+import { SAMPLE_PARAGRAPHS } from '../../data/sampleParas';
 
 const TotalTime = 60;
 const URL = "http://metaphorpsum.com/paragraphs/1/9";
@@ -19,6 +20,26 @@ const defaultState = {
 
 class App extends React.Component {
   state = defaultState;
+
+  fetchNewParaFallback = () => {
+    const data = SAMPLE_PARAGRAPHS[
+      Math.floor(Math.random() * SAMPLE_PARAGRAPHS.length)
+    ]
+  
+    const selectedParagraphArray = data.split("");
+      console.log(selectedParagraphArray);
+      const testInfo = selectedParagraphArray.map(selectedLetter => {
+        return ({
+            testLetter: selectedLetter,
+            status: "notAttempted"
+        })
+      });
+
+      //Resetting to default values
+      this.setState({ ...defaultState, testInfo, selectedParagraph: data })
+      //when the name of the key = name of the value, we can just use one name to represent,
+      // so testInfo: testInfo becomes just testInfo
+  }
 
   fetchNewPara = () => {
     fetch(URL)
@@ -42,7 +63,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchNewPara();
+    // this.fetchNewPara();
+    this.fetchNewParaFallback();
   }
   //1. render method gets called
   //2. fetch method is called and we update the state by setting the response as the new state
@@ -70,7 +92,8 @@ class App extends React.Component {
   }
 
   startAgain = () => {
-    this.fetchNewPara();
+    this.fetchNewParaFallback();
+    // this.fetchNewPara();
     console.log('starting again!!');
   }
 
