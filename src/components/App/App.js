@@ -42,9 +42,46 @@ class App extends React.Component {
   //2. fetch method is called and we update the state by setting the response as the new state
   //3. due to state change, render method gets called again
 
+  startTimer = () => {
+    this.setState({ timerStarted: true})
+    const timer = setInterval(() => {
+        if (this.state.timeRemaining > 0) {
+
+          //changing the words per minute count
+          const timeSpent = TotalTime - this.state.timeRemaining; 
+
+          const wpm = (timeSpent > 0) ? ((this.state.words / timeSpent) * TotalTime) : 0;
+          this.setState({ 
+            timeRemaining: this.state.timeRemaining - 1,
+            wpm: parseInt(wpm)
+          })
+        } else 
+        {
+          clearInterval(timer);
+        }
+        
+    }, 1000)
+  }
 
   handleUserInput = (inputValue) => {
+    if (!this.state.timerStarted) 
+      this.startTimer()
     console.log(inputValue);
+
+    // 1. Handle the underflow case - all characters should be shown as not-attempted
+    // 2. Handle the overflow case - early exit
+    // 3. Handle the backspace case
+    //      - Mark the [index+1] element as notAttempted
+    //        (irrespective of whether the index is less than zero)
+    //      - But, don't forget to check for the overflow here
+    //        (index + 1 -> out of bound, when index === length-1)
+    // 4. Update the status in test info
+    //      1. Find out the last character in the inputValue and it's index
+    //      2. Check if the character at same index in testInfo (state) matches
+    //      3. Yes -> Correct
+    //         No  -> Incorrect (Mistake++)
+    // 5. Irrespective of the case, characters, words and wpm can be updated
+
   }
 
   render() { //Should be devoid of any async method
