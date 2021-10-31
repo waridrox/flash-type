@@ -6,7 +6,7 @@ import Nav from '../Nav/Nav';
 import React from 'react';
 
 const TotalTime = 60;
-// const URL = "http://metaphorpsum.com/paragraphs/1/9";
+const URL = "http://metaphorpsum.com/paragraphs/1/9";
 
 class App extends React.Component {
   state = {
@@ -20,23 +20,23 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    // fetch(URL)
-    // .then(response => response.text())
-    // .then(data => {
-    //   this.setState({selectedParagraph: data})
-    // })
-    const selectedParagraphArray = this.state.selectedParagraph.split("");
-    console.log(selectedParagraphArray);
-    const testInfo = selectedParagraphArray.map(selectedLetter => {
-      return ({
-          testLetter: selectedLetter,
-          status: "notAttempted"
-      })
-    });
+    fetch(URL)
+    .then(response => response.text())
+    .then(data => {
 
-    this.setState({ testInfo })
-    //when the name of the key = name of the value, we can just use one name to represent,
-    // so testInfo: testInfo becomes just testInfo
+      const selectedParagraphArray = data.split("");
+      console.log(selectedParagraphArray);
+      const testInfo = selectedParagraphArray.map(selectedLetter => {
+        return ({
+            testLetter: selectedLetter,
+            status: "notAttempted"
+        })
+      });
+  
+      this.setState({ testInfo, selectedParagraph: data })
+      //when the name of the key = name of the value, we can just use one name to represent,
+      // so testInfo: testInfo becomes just testInfo
+    })
   }
   //1. render method gets called
   //2. fetch method is called and we update the state by setting the response as the new state
@@ -82,6 +82,51 @@ class App extends React.Component {
     //         No  -> Incorrect (Mistake++)
     // 5. Irrespective of the case, characters, words and wpm can be updated
 
+    const characters = inputValue.length;
+    const words = inputValue.split(" ").length;
+    const index = characters - 1;
+
+    //handling the underflow case
+    if (index < 0) {
+      this.setState({
+          testInfo: [
+            {
+              testLetter: this.state.testInfo[0].testLetter,
+              status: "notAttempted"
+            },
+            ...this.state.testInfo.slice(1)
+          ],
+          characters,
+          words
+      });
+
+      //early exit
+      return;
+    }
+
+    //handling the overflow case
+    if (index >= this.state.selectedParagraph.length) {
+        this.setState({ words, characters })
+        return;
+    }
+
+    //handling the backspace case
+    const testinfo = this.state.testInfo;
+    if (!(index === this.state.selectedParagraph.length - 1))
+      testinfo[index + 1].status = "notAttempted";
+
+    //check for the correct typed letter 
+    const isCorrect = inputValue[index] === testinfo[index].testLetter;
+
+    //update the test info
+    testinfo[index].status = isCorrect ? "correct" : "incorrect";
+
+    //Update the state
+    this.setState({ 
+      testinfo,
+      words,
+      characters
+    })
   }
 
   render() { //Should be devoid of any async method

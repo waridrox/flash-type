@@ -25,11 +25,11 @@ const TryAgain = ({
             <div>
                 <button className="end-buttons start-again-btn">Retry</button>
                
-                <button onClick={()=> {window.open("https://www.facebook.com/sharer/sharer.php?u=Check out this new typing tool that I found online!", "facebook-share-post-dialog", "width-800, heigth=600")}} 
+                <button onClick={()=> {window.open("http://www.facebook.com/sharer/sharer.php?u=Check out this new typing tool that I built!", "facebook-share-post-dialog", "width-800, heigth=600")}} 
                 className="end-buttons share-btn">
                 Share</button>
 
-                <button onClick={()=> {window.open("https://www.twitter.com/intent/tweet?text=Check out this new typing tool that I found online!", "twitter-share-post-dialog", "width-800, heigth=600")}}
+                <button onClick={()=> {window.open("https://www.twitter.com/intent/tweet?text=Check out this new typing app that I built!", "twitter-share-post-dialog", "width-800, heigth=600")}}
                 className="end-buttons tweet-btn">
                 Tweet</button>
 
