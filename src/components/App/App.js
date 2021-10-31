@@ -7,23 +7,24 @@ import React from 'react';
 
 const TotalTime = 60;
 const URL = "http://metaphorpsum.com/paragraphs/1/9";
+const defaultState = {
+  selectedParagraph: "",
+  timerStarted: false, 
+  timeRemaining: TotalTime,
+  words: 0,
+  characters: 0, 
+  wpm: 0,
+  testInfo: []
+};
 
 class App extends React.Component {
-  state = {
-      selectedParagraph: "Tester",
-      timerStarted: false, 
-      timeRemaining: TotalTime,
-      words: 0,
-      characters: 0, 
-      wpm: 0,
-      testInfo: []
-  };
+  state = defaultState;
 
-  componentDidMount() {
+  fetchNewPara = () => {
     fetch(URL)
     .then(response => response.text())
     .then(data => {
-
+  
       const selectedParagraphArray = data.split("");
       console.log(selectedParagraphArray);
       const testInfo = selectedParagraphArray.map(selectedLetter => {
@@ -32,11 +33,16 @@ class App extends React.Component {
             status: "notAttempted"
         })
       });
-  
-      this.setState({ testInfo, selectedParagraph: data })
+
+      //Resetting to default values
+      this.setState({ ...defaultState, testInfo, selectedParagraph: data })
       //when the name of the key = name of the value, we can just use one name to represent,
       // so testInfo: testInfo becomes just testInfo
     })
+  }
+
+  componentDidMount() {
+    this.fetchNewPara();
   }
   //1. render method gets called
   //2. fetch method is called and we update the state by setting the response as the new state
@@ -61,6 +67,11 @@ class App extends React.Component {
         }
         
     }, 1000)
+  }
+
+  startAgain = () => {
+    this.fetchNewPara();
+    console.log('starting again!!');
   }
 
   handleUserInput = (inputValue) => {
@@ -147,6 +158,7 @@ class App extends React.Component {
               timerStarted = {this.state.timerStarted}
               testInfo = {this.state.testInfo}
               onInputChange = {this.handleUserInput}
+              startAgain = {this.startAgain}
 
             />
             {/* Child component of Challenge Section is going to be a Test Container

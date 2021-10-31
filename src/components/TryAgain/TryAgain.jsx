@@ -4,7 +4,8 @@ import './TryAgain.css'
 const TryAgain = ({
     words, 
     characters, 
-    wpm
+    wpm,
+    startAgain
 }) => {
     return ( 
         <div className="try-again-container">
@@ -23,7 +24,7 @@ const TryAgain = ({
             </div>
 
             <div>
-                <button className="end-buttons start-again-btn">Retry</button>
+                <button onClick={() => startAgain()} className="end-buttons start-again-btn">Retry</button>
                
                 <button onClick={()=> {window.open("http://www.facebook.com/sharer/sharer.php?u=Check out this new typing tool that I built!", "facebook-share-post-dialog", "width-800, heigth=600")}} 
                 className="end-buttons share-btn">
